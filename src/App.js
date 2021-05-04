@@ -1,25 +1,69 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import { Switch, Route } from 'react-router-dom';
+import Navbar from './components/navbar/Navbar';
+import Signup from './components/auth/Signup';
+import AuthService from './components/auth/auth-service';
+import Login from './components/auth/Login';
+//import ProtectedRoute from './components/auth/protected-route';
+import AddBusiness from './components/Business/AddBusiness';
+import BusinessList from './components/Business/BusinessList';
+import AddCourse from './components/Course/AddCourse';
+import CourseList from './components/Course/CourseList';
+import AddGuide from './components/Guide/AddGuide';
+import GuideList from './components/Guide/GuideList';
+import AddMonument from './components/Monument/AddMonument';
+import MonumentList from './components/Monument/MonumentList';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+  state = { loggedInUser: null }
+
+  service = new AuthService()
+
+  fetchUser() {
+    if (this.state.loggedInUser === null) {
+      this.service.loggedin()
+        .then((response) => {
+          this.setState({
+            loggedInUser: response,
+          })
+        })
+        .catch((err) => {
+          this.setState({
+            loggedInUser: false
+          })
+        })
+    }
+  }
+
+  setTheUser = (userObj) => {
+    this.setState({
+      loggedInUser: userObj
+    })
+    console.log("user is", this.state.loggedInUser)
+  }
+
+  render() {
+    this.fetchUser()
+    return (
+      <div className="App">
+        <Navbar loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} />
+        <Switch>
+          <Route exact path='/signup' render={(props) => <Signup setTheUser={this.setTheUser} {...props} />} />
+          <Route exact path='/login' render={(props) => <Login setTheUser={this.setTheUser} {...props} />} />
+          <Route exact path='/business/add' render={(props) => <AddBusiness setTheUser={this.setTheUser} {...props} />} />
+          <Route exact path='/business/list' render={(props) => <BusinessList setTheUser={this.setTheUser} {...props} />} />
+          <Route exact path='/course/add' render={(props) => <AddCourse setTheUser={this.setTheUser} {...props} />} />
+          <Route exact path='/course/list' render={(props) => <CourseList setTheUser={this.setTheUser} {...props} />} />
+          <Route exact path='/guide/add' render={(props) => <AddGuide setTheUser={this.setTheUser} {...props} />} />
+          <Route exact path='/guide/list' render={(props) => <GuideList setTheUser={this.setTheUser} {...props} />} />
+          <Route exact path='/monument/add' render={(props) => <AddMonument setTheUser={this.setTheUser} {...props} />} />
+          <Route exact path='/monument/list' render={(props) => <MonumentList setTheUser={this.setTheUser} {...props} />} />
+
+        </Switch>
+      </div>
+    );
+  }
 }
-
 export default App;
