@@ -7,8 +7,7 @@ class AddMonument extends Component {
 
     handleFormSubmit = (event) => {
         event.preventDefault();
-        const name = this.state.name;
-        this.MonumentService.createMonument(name)
+        this.MonumentService.createMonument(this.state)
             .then(() => {
                 this.setState({ name: "" });
             })
@@ -26,6 +25,7 @@ class AddMonument extends Component {
                 <form onSubmit={this.handleFormSubmit}>
                     <label>Name:</label>
                     <input type="text" name="name" value={this.state.name} onChange={e => this.handleChange(e)} />
+
                     <input type="submit" value="Submit" />
                 </form>
             </div>

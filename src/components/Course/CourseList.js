@@ -8,6 +8,7 @@ export default class CourseList extends Component {
     CourseService = new CourseService()
 
     componentDidMount() {
+        console.log('course list mounted', this.state.courses)
         this.CourseService.getCourses()
             .then((response) => {
                 this.setState({ courses: response.data })
@@ -15,6 +16,7 @@ export default class CourseList extends Component {
     }
 
     render() {
+        console.log('course list render', this.state.courses)
         return (
             <div>
                 <div style={{ width: '60%', float: "left" }}>
@@ -23,6 +25,9 @@ export default class CourseList extends Component {
                             <div key={course._id}>
                                 <Link to={`/course/${course._id}`}>
                                     <h3>{course.name}</h3>
+                                </Link>
+                                <Link to={`/course/${course._id}/edit`}>
+                                    edit
                                 </Link>
                                 {/* <p style={{maxWidth: '400px'}} >{project.description} </p> */}
                             </div>

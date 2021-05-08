@@ -12,8 +12,8 @@ class MonumentService {
 
     }
 
-    createMonument = (name) => {
-        return this.service.post('/monument', { name })
+    createMonument = (monumentData) => {
+        return this.service.post('/monument', monumentData)
             .then(response => {
                 console.log('response', response)
                 return response.data
@@ -26,6 +26,23 @@ class MonumentService {
                 return response.data
             })
     }
+    getMonumentById = (monumentId) => {
+        return this.service.get(`/monument/${monumentId}`)
+            .then(response => {
+                console.log('response', response)
+                return response.data
+            })
+    }
+    editMonument = (monumentId, monumentToEdit) => {
+        return this.service.put(`/monument/${monumentId}`, monumentToEdit)
+            .then((response) => response.data)
+    }
+
+    deleteMonumentById = (monumentId) => {
+        return this.service.delete(`/monument/${monumentId}`)
+            .then((response) => response.data)
+    }
+
 
 }
 

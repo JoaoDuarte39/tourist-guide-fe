@@ -8,6 +8,7 @@ export default class MonumentList extends Component {
     MonumentService = new MonumentService()
 
     componentDidMount() {
+        console.log('monument list mounted', this.state.monuments)
         this.MonumentService.getMonuments()
             .then((response) => {
                 this.setState({ monuments: response.data })
@@ -15,6 +16,7 @@ export default class MonumentList extends Component {
     }
 
     render() {
+        console.log('monument list render', this.state.monuments)
         return (
             <div>
                 <div style={{ width: '60%', float: "left" }}>
@@ -23,6 +25,9 @@ export default class MonumentList extends Component {
                             <div key={monument._id}>
                                 <Link to={`/monument/${monument._id}`}>
                                     <h3>{monument.name}</h3>
+                                </Link>
+                                <Link to={`/monument/${monument._id}/edit`}>
+                                    edit
                                 </Link>
                                 {/* <p style={{maxWidth: '400px'}} >{project.description} </p> */}
                             </div>

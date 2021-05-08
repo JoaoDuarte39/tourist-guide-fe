@@ -26,6 +26,22 @@ class BusinessService {
                 return response.data
             })
     }
+    getBusinessById = (businessId) => {
+        return this.service.get(`/business/${businessId}`)
+            .then(response => {
+                console.log('response', response)
+                return response.data
+            })
+    }
+    editBusiness = (businessId, businessToEdit) => {
+        return this.service.put(`/business/${businessId}`, businessToEdit)
+            .then((response) => response.data)
+    }
+
+    deleteBusinessById = (businessId) => {
+        return this.service.delete(`/business/${businessId}`)
+            .then((response) => response.data)
+    }
 
 }
 

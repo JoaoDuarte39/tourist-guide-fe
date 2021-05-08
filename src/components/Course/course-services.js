@@ -26,6 +26,22 @@ class CourseService {
                 return response.data
             })
     }
+    getCourseById = (courseId) => {
+        return this.service.get(`/course/${courseId}`)
+            .then(response => {
+                console.log('response', response)
+                return response.data
+            })
+    }
+
+    editCourse = (courseId, courseToEdit) => {
+        return this.service.put(`/course/${courseId}`, courseToEdit)
+            .then((response) => response.data)
+    }
+    deleteCourseById = (courseId) => {
+        return this.service.delete(`/course/${courseId}`)
+            .then((response) => response.data)
+    }
 
 }
 

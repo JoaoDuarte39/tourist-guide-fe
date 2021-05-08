@@ -7,7 +7,10 @@ export default class BusinessList extends Component {
     state = { businesses: [] }
     BusinessService = new BusinessService()
 
+
+
     componentDidMount() {
+        console.log('business list mounted', this.state.businesses)
         this.BusinessService.getBusinesses()
             .then((response) => {
                 console.log(response)
@@ -16,6 +19,8 @@ export default class BusinessList extends Component {
     }
 
     render() {
+        console.log('business list render', this.state.businesses)
+
         return (
             <div>
                 <div style={{ width: '60%', float: "left" }}>
@@ -24,6 +29,9 @@ export default class BusinessList extends Component {
                             <div key={business._id}>
                                 <Link to={`/business/${business._id}`}>
                                     <h3>{business.name}</h3>
+                                </Link>
+                                <Link to={`/business/${business._id}/edit`}>
+                                    edit
                                 </Link>
                                 {/* <p style={{maxWidth: '400px'}} >{project.description} </p> */}
                             </div>

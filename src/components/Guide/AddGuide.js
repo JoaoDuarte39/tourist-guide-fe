@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import GuideService from "./guide-services"
 
 class AddGuide extends Component {
-    state = { name: "", owner: "" }
+    state = { name: "" }
     GuideService = new GuideService()
 
     handleFormSubmit = (event) => {
         event.preventDefault();
         this.GuideService.createGuide(this.state)
             .then(() => {
-                this.setState({ name: "", owner: "User" });
+                this.setState({ name: "" });
             })
             .catch(error => console.log(error))
     }
