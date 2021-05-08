@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import AddMonument from './AddMonument';
 import MonumentService from "./monument-services"
 import { Link } from 'react-router-dom';
 
