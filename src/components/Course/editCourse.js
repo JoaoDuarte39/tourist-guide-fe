@@ -19,10 +19,9 @@ class EditCourse extends Component {
 
 
     handleFormSubmit = (event) => {
-
-        const courseId = this.state._id;
-        const courseToEdit = this.state
         event.preventDefault();
+        const courseId = this.state._id;
+        const courseToEdit = { ...this.state }
         this.CourseService.editCourse(courseId, courseToEdit)
             .then((editedCourse) => {
                 this.setState({ ...editedCourse })
@@ -37,26 +36,28 @@ class EditCourse extends Component {
 
 
 
-    componentDidMount() {
-        this.getCourse()
-    }
 
-    deleteCourseById(courseId) {
+    deleteCourseById = (courseId) => {
         this.CourseService.deleteCourseById(courseId)
     }
 
-    addMonument(monumentId) {
+    addMonumentToCourse = (monumentId) => {
+        console.log(monumentId)
         this.setState({ monuments: [...this.state.monuments, monumentId] });
 
     }
 
-    removeMonument(monumentId) {
-        const monumentArray = this.state.monuments.filter(monument => {
+    removeMonumentToCourse = (monumentId) => {
+        const monumentArray = [...this.state.monuments].filter(monument => {
             return monument._id !== monumentId
         })
 
         console.log("monumentArray", monumentArray)
         this.setState({ monuments: monumentArray });
+    }
+
+    componentDidMount() {
+        this.getCourse()
     }
 
     render() {
@@ -79,8 +80,7 @@ class EditCourse extends Component {
                         <option value="car">Car</option>
                         <option value="bus">Bus</option>
                     </select>
-                    <MonumentList addMonument={this.addMonument} />
-
+                    <MonumentList addMonumentToCourse={this.addMonumentToCourse} />
                     <input type="submit" value="Submit" />
                 </form>
                 <button onClick={() => this.deleteCourseById(this.state._id)}>

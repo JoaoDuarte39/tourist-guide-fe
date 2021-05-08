@@ -29,15 +29,18 @@ export default class MonumentList extends Component {
                                 <Link to={`/monument/${monument._id}/edit`}>
                                     edit
                                 </Link>
+                                {this.props.addMonumentToCourse &&
+                                    <button onClick={() => this.props.addMonumentToCourse(monument._id)}>Add</button>
+                                }
                                 {/* <p style={{maxWidth: '400px'}} >{project.description} </p> */}
                             </div>
                         )
                     })
                     }
                 </div>
-                <div >
-                    <AddMonument /> {/* <== !!! */}
-                </div>
+                {/* <div >
+                    <AddMonument />
+                </div> */}
             </div>
         )
     }
